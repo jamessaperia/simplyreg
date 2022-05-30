@@ -35,7 +35,7 @@ class Plates():
     def load_plates(self, dealerList, dealerFolder):
         duplicateCheck = dict()
         for (dealerFile, dealer, addVat, markup) in dealerList:
-            with open (join(dealerFolder, dealerFile), 'rb') as csvFile:
+            with open (join(dealerFolder, dealerFile), 'r') as csvFile:
                 reader = csv.reader(csvFile)
                 for line in reader:
                     if len(line) == 2:
@@ -77,8 +77,8 @@ class Plates():
         for plateT in self.plates:
             if wholeRe.match(plateT[0]):
                 wholeResults.append(plateT)
-        wholeResults.sort(lambda x,y: cmp(x[1], y[1]))
-        wholeResults.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
+        wholeResults.sort(key=lambda x: x[1])
+        wholeResults.sort(key=lambda x: len(x[0]))
         return wholeResults
     
     def alphabet_list(self, alpha):
